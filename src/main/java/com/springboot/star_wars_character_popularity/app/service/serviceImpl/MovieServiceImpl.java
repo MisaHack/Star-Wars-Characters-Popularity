@@ -29,7 +29,7 @@ public class MovieServiceImpl implements MovieService {
     }
 
     @Override
-    public MovieModel getAllMoviesById(long id) {
+    public MovieModel getMovieById(long id) {
         Optional<MovieModel> movie = movieRepository.findById(id);
 
         if(movie.isPresent()){
