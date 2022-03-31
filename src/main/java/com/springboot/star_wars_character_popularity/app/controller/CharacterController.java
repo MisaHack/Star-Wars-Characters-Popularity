@@ -30,17 +30,17 @@ public class CharacterController {
         return characterService.getAllCharacters();
     }
 
-    @GetMapping("{id}")
+    @GetMapping("/{id}")
     public ResponseEntity<CharacterModel> getCharacterById(@PathVariable("id") long character_id){
         return new ResponseEntity<CharacterModel>(characterService.getCharacterById(character_id),HttpStatus.OK);
     }
 
-    @PutMapping("{id}")
+    @PutMapping("/{id}")
     public ResponseEntity<CharacterModel> updateCharacter(@PathVariable("id") long id, @RequestBody CharacterModel character){
        return new ResponseEntity<CharacterModel>(characterService.updateCharacter(character, id), HttpStatus.OK);
     }
 
-    @DeleteMapping("{id}")
+    @DeleteMapping("/{id}")
     public ResponseEntity<String> deleteChannel(@PathVariable("id") long id){
 
         characterService.deleteCharacter(id);

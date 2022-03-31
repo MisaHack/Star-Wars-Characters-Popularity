@@ -31,17 +31,17 @@ public class UserController {
         return userService.getAllUsers();
     }
 
-    @GetMapping("{id}")
+    @GetMapping("/{id}")
     public ResponseEntity<UserModel> getUserById(@PathVariable("id") long user_id){
         return new ResponseEntity<UserModel>(userService.getUserById(user_id), HttpStatus.OK);
     }
 
-    @PutMapping("{id}")
+    @PutMapping("/{id}")
     public ResponseEntity<UserModel> updateUser(@PathVariable("id") long id, @RequestBody UserModel user){
         return new ResponseEntity<UserModel>(userService.updateUser(user, id), HttpStatus.OK);
     }
 
-    @DeleteMapping("{id}")
+    @DeleteMapping("/{id}")
     public ResponseEntity<String> deleteUser(@PathVariable("id") long id){
 
         userService.deleteUser(id);

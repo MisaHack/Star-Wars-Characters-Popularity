@@ -33,17 +33,17 @@ public class RoleController {
         return roleService.getAllRoles();
     }
 
-    @GetMapping("{id}")
+    @GetMapping("/{id}")
     public ResponseEntity<RoleModel> getRoleById(@PathVariable("id") long role_id){
         return new ResponseEntity<RoleModel>(roleService.getRolesById(role_id), HttpStatus.OK);
     }
 
-    @PutMapping("{id}")
+    @PutMapping("/{id}")
     public ResponseEntity<RoleModel> updateRole(@PathVariable("id") long id, @RequestBody RoleModel role){
         return new ResponseEntity<RoleModel>(roleService.updateRole(role, id), HttpStatus.OK);
     }
 
-    @DeleteMapping("{id}")
+    @DeleteMapping("/{id}")
     public ResponseEntity<String> deleteRole(@PathVariable("id") long id){
 
         roleService.deleteRole(id);

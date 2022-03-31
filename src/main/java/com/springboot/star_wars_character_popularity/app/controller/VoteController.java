@@ -30,17 +30,17 @@ public class VoteController {
         return voteService.getAllVotes();
     }
 
-    @GetMapping("id")
+    @GetMapping("/{id}")
     public ResponseEntity<VoteModel> getVoteById(@PathVariable("id") long vote_id){
        return new ResponseEntity<VoteModel>(voteService.getVoteById(vote_id), HttpStatus.OK);
     }
 
-    @PutMapping("{id}")
+    @PutMapping("/{id}")
     public ResponseEntity<VoteModel> updateVote(@PathVariable("id") long id, @RequestBody VoteModel vote){
         return new ResponseEntity<VoteModel>(voteService.updateVote(vote,id), HttpStatus.OK);
     }
 
-    @DeleteMapping("{id}")
+    @DeleteMapping("/{id}")
     public ResponseEntity<String> deleteVote(@PathVariable("id") long id){
 
         voteService.deleteVote(id);

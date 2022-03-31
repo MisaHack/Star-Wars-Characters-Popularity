@@ -30,17 +30,17 @@ public class MovieController {
         return movieService.getAllMovies();
     }
 
-    @GetMapping("{id}")
+    @GetMapping("/{id}")
     public ResponseEntity<MovieModel> getMovieById(@PathVariable("id") long movie_id){
         return new ResponseEntity<MovieModel>(movieService.getMovieById(movie_id), HttpStatus.OK);
     }
 
-    @PutMapping("{id}")
+    @PutMapping("/{id}")
     public ResponseEntity<MovieModel> updateMovie(@PathVariable("id") long id, @RequestBody MovieModel movie){
         return new ResponseEntity<MovieModel>(movieService.updateMovie(movie, id), HttpStatus.OK);
     }
 
-    @DeleteMapping("{id}")
+    @DeleteMapping("/{id}")
     public ResponseEntity<String> deleteMovie(@PathVariable("id") long id){
 
         movieService.deleteMovie(id);
