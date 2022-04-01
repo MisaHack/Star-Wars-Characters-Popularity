@@ -1,7 +1,9 @@
 package com.springboot.star_wars_character_popularity.app.model;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
 import java.util.HashSet;
@@ -9,6 +11,8 @@ import java.util.Objects;
 import java.util.Set;
 
 @Data
+@NoArgsConstructor
+@AllArgsConstructor
 @Entity
 @Table(name = "Vote")
 public class VoteModel {
