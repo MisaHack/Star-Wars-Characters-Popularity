@@ -21,6 +21,10 @@ public class MovieModel {
     @Column(name = "videoName")
     public String name;
 
+    public MovieModel(String name){
+        this.name = name;
+    }
+
     @JsonIgnore
     @ManyToMany(fetch = FetchType.LAZY)
     @JoinTable(

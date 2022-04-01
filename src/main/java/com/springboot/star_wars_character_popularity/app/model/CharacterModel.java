@@ -1,7 +1,9 @@
 package com.springboot.star_wars_character_popularity.app.model;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
 import java.util.HashSet;
@@ -10,6 +12,8 @@ import java.util.Set;
 
 @Data
 @Entity
+@NoArgsConstructor
+@AllArgsConstructor
 @Table(name="Character")
 public class CharacterModel {
 
@@ -26,6 +30,11 @@ public class CharacterModel {
 
     @Column(name = "planet")
     public String planet;
+
+    public CharacterModel(String name, String planet){
+        this.name=name;
+        this.planet=planet;
+    }
 
     @JsonIgnore
     @ManyToMany(fetch = FetchType.LAZY)

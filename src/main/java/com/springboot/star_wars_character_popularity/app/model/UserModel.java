@@ -26,6 +26,11 @@ public class UserModel {
     @Column(name = "email")
     private String email;
 
+    public UserModel(String userName, String email){
+        this.userName = userName;
+        this.email = email;
+    }
+
     @JsonIgnore
     @ManyToMany(fetch = FetchType.LAZY)
     @JoinTable(

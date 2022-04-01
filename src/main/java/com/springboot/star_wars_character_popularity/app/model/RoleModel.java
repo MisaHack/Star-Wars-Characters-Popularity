@@ -25,6 +25,10 @@ public class RoleModel {
     @Column(name = "roleName")
     private String roleName;
 
+    public RoleModel(String roleName){
+        this.roleName = roleName;
+    }
+
     @JsonIgnore
     @ManyToMany(fetch = FetchType.LAZY)
     @JoinTable(

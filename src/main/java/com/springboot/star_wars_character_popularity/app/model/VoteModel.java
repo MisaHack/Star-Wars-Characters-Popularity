@@ -27,6 +27,11 @@ public class VoteModel {
     @Column(name = "icon")
     public byte [] icon;
 
+    public VoteModel(long count, String comment){
+        this.count = count;
+        this.comment = comment;
+    }
+
     @JsonIgnore
     @ManyToMany(fetch = FetchType.LAZY)
     @JoinTable(
