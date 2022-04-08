@@ -1,7 +1,7 @@
 package com.springboot.star_wars_character_popularity.app.service.serviceImpl;
 
 import com.springboot.star_wars_character_popularity.app.exception.ResourceNotFoundException;
-import com.springboot.star_wars_character_popularity.app.model.RoleModel;
+import com.springboot.star_wars_character_popularity.app.model.Role;
 import com.springboot.star_wars_character_popularity.app.repository.RoleRepository;
 import com.springboot.star_wars_character_popularity.app.service.RoleService;
 import org.springframework.stereotype.Service;
@@ -19,18 +19,18 @@ public class RoleServiceImpl implements RoleService {
     }
 
     @Override
-    public RoleModel saveRole(RoleModel role) {
+    public Role saveRole(Role role) {
         return roleRepository.save(role);
     }
 
     @Override
-    public List<RoleModel> getAllRoles() {
+    public List<Role> getAllRoles() {
         return roleRepository.findAll();
     }
 
     @Override
-    public RoleModel getRolesById(long id) {
-        Optional<RoleModel> role = roleRepository.findById(id);
+    public Role getRolesById(long id) {
+        Optional<Role> role = roleRepository.findById(id);
 
         if(role.isPresent()){
             return role.get();
@@ -41,9 +41,9 @@ public class RoleServiceImpl implements RoleService {
     }
 
     @Override
-    public RoleModel updateRole(RoleModel role, long id) {
+    public Role updateRole(Role role, long id) {
 
-        RoleModel existingRole = roleRepository.findById(id).orElseThrow(() -> new ResourceNotFoundException("Role","id",id));
+        Role existingRole = roleRepository.findById(id).orElseThrow(() -> new ResourceNotFoundException("Role","id",id));
 
         existingRole.setRoleName(role.getRoleName());
 

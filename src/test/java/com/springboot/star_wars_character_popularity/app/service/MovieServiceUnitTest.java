@@ -1,7 +1,7 @@
 package com.springboot.star_wars_character_popularity.app.service;
 
 import com.springboot.star_wars_character_popularity.app.exception.ResourceNotFoundException;
-import com.springboot.star_wars_character_popularity.app.model.MovieModel;
+import com.springboot.star_wars_character_popularity.app.model.Movie;
 import com.springboot.star_wars_character_popularity.app.repository.MovieRepository;
 import com.springboot.star_wars_character_popularity.app.service.serviceImpl.MovieServiceImpl;
 import org.junit.jupiter.api.BeforeEach;
@@ -33,14 +33,14 @@ public class MovieServiceUnitTest {
     @Test
     void shouldReturnSavedMovie(){
         //given
-        MovieModel movieModel = new MovieModel("A New Hope");
+        Movie movieModel = new Movie("A New Hope");
 
-        when(this.movieRepositoryMock.save(movieModel)).thenReturn(new MovieModel("A New Hope"));
+        when(this.movieRepositoryMock.save(movieModel)).thenReturn(new Movie("A New Hope"));
 
-        MovieModel expectedMovie =  new MovieModel("A New Hope");
+        Movie expectedMovie =  new Movie("A New Hope");
 
         //when
-        MovieModel actualModel = movieService.saveMovie(movieModel);
+        Movie actualModel = movieService.saveMovie(movieModel);
 
         //then
         assertNotNull(actualModel);
@@ -52,11 +52,11 @@ public class MovieServiceUnitTest {
     @Test
     void shouldReturnAllSavedMovies(){
         //given
-        MovieModel movieModel1 = new MovieModel("A New Hope");
-        MovieModel movieModel2 = new MovieModel("The Empire Strikes Back");
-        MovieModel movieModel3 = new MovieModel("Return of the Jedi");
+        Movie movieModel1 = new Movie("A New Hope");
+        Movie movieModel2 = new Movie("The Empire Strikes Back");
+        Movie movieModel3 = new Movie("Return of the Jedi");
 
-        List<MovieModel> movies = new ArrayList<>();
+        List<Movie> movies = new ArrayList<>();
         movies.add(movieModel1);
         movies.add(movieModel2);
         movies.add(movieModel3);
@@ -64,7 +64,7 @@ public class MovieServiceUnitTest {
         when(this.movieRepositoryMock.findAll()).thenReturn(movies);
 
         //when
-        List<MovieModel> actual = movieService.getAllMovies();
+        List<Movie> actual = movieService.getAllMovies();
 
         //then
         assertEquals(actual, movies);
@@ -77,16 +77,16 @@ public class MovieServiceUnitTest {
     @Test
     void shouldReturnSavedMoviesById(){
         //given
-        MovieModel movieModel = new MovieModel("The Empire Strikes Back");
+        Movie movieModel = new Movie("The Empire Strikes Back");
 
         long id = 1;
 
-        Optional<MovieModel> movieOptional = Optional.of(new MovieModel("The Empire Strikes Back"));
+        Optional<Movie> movieOptional = Optional.of(new Movie("The Empire Strikes Back"));
 
         when(this.movieRepositoryMock.findById(id)).thenReturn(movieOptional);
 
         //when
-        MovieModel actualModel = movieService.getMovieById(1);
+        Movie actualModel = movieService.getMovieById(1);
 
         //then
         assertEquals(actualModel, movieModel);

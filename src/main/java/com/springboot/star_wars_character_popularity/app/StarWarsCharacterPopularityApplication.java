@@ -9,6 +9,5 @@ public class StarWarsCharacterPopularityApplication {
 	public static void main(String[] args) {
 		SpringApplication.run(StarWarsCharacterPopularityApplication.class, args);
 	}
-
 }
 

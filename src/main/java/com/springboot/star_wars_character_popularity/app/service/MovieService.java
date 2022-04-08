@@ -1,13 +1,13 @@
 package com.springboot.star_wars_character_popularity.app.service;
 
-import com.springboot.star_wars_character_popularity.app.model.MovieModel;
+import com.springboot.star_wars_character_popularity.app.model.Movie;
 
 import java.util.List;
 
 public interface MovieService {
-    MovieModel saveMovie(MovieModel movie);
-    List<MovieModel> getAllMovies();
-    MovieModel getMovieById(long id);
-    MovieModel updateMovie(MovieModel movie, long id);
+    Movie saveMovie(Movie movie);
+    List<Movie> getAllMovies();
+    Movie getMovieById(long id);
+    Movie updateMovie(Movie movie, long id);
     void deleteMovie(long id);
 }

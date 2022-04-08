@@ -15,7 +15,7 @@ import java.util.Set;
 @AllArgsConstructor
 @Entity
 @Table(name = "Role")
-public class RoleModel {
+public class Role {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -25,7 +25,7 @@ public class RoleModel {
     @Column(name = "roleName")
     private String roleName;
 
-    public RoleModel(String roleName){
+    public Role(String roleName){
         this.roleName = roleName;
     }
 
@@ -36,7 +36,7 @@ public class RoleModel {
             joinColumns = @JoinColumn(name = "roleId"),
             inverseJoinColumns = @JoinColumn(name = "userId")
     )
-    private Set<UserModel> users = new HashSet<>();
+    private Set<User> users = new HashSet<>();
 
     @Override
     public boolean equals(Object o) {
@@ -44,7 +44,7 @@ public class RoleModel {
             return true;
         if (o == null || getClass() != o.getClass())
             return false;
-        RoleModel roleModel = (RoleModel) o;
+        Role roleModel = (Role) o;
         return getId() == roleModel.getId() && getRoleName().equals(roleModel.getRoleName());
     }
 

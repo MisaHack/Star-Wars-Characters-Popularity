@@ -11,39 +11,32 @@ import java.util.Objects;
 import java.util.Set;
 
 @Data
+@Entity
 @NoArgsConstructor
 @AllArgsConstructor
-@Entity
-@Table(name = "Vote")
-public class VoteModel {
+@Table(name = "Movie")
+public class Movie {
 
     @Id
-    @GeneratedValue
-    @Column(name = "voteId")
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "movieId")
     public long id;
 
-    @Column(name = "count")
-    public long count;
+    @Column(name = "videoName")
+    public String name;
 
-    @Column(name = "comment")
-    public String comment;
-
-    @Column(name = "icon")
-    public byte [] icon;
-
-    public VoteModel(long count, String comment){
-        this.count = count;
-        this.comment = comment;
+    public Movie(String name){
+        this.name = name;
     }
 
     @JsonIgnore
     @ManyToMany(fetch = FetchType.LAZY)
     @JoinTable(
-            name = "user_votes",
-            joinColumns = @JoinColumn(name = "voteId"),
-            inverseJoinColumns = @JoinColumn(name = "userId")
+            name = "character_movies",
+            joinColumns = @JoinColumn(name = "movieId"),
+            inverseJoinColumns = @JoinColumn(name = "characterId")
     )
-    private Set<UserModel> users = new HashSet<>();
+    public Set<Character> characters = new HashSet<>();
 
     @Override
     public boolean equals(Object o) {
@@ -51,12 +44,12 @@ public class VoteModel {
             return true;
         if (o == null || getClass() != o.getClass())
             return false;
-        VoteModel voteModel = (VoteModel) o;
-        return getId() == voteModel.getId();
+        Movie that = (Movie) o;
+        return getId() == that.getId() && getName().equals(that.getName());
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(getId());
+        return Objects.hash(getId(), getName());
     }
 }

@@ -1,13 +1,13 @@
 package com.springboot.star_wars_character_popularity.app.service;
 
-import com.springboot.star_wars_character_popularity.app.model.VoteModel;
+import com.springboot.star_wars_character_popularity.app.model.Vote;
 
 import java.util.List;
 
 public interface VoteService {
-   VoteModel saveVote(VoteModel vote);
-   List<VoteModel> getAllVotes();
-   VoteModel getVoteById(long id);
-   VoteModel updateVote(VoteModel vote, long id);
+   Vote saveVote(Vote vote);
+   List<Vote> getAllVotes();
+   Vote getVoteById(long id);
+   Vote updateVote(Vote vote, long id);
    void deleteVote(long id);
 }

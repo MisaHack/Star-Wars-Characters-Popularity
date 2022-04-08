@@ -1,7 +1,7 @@
 package com.springboot.star_wars_character_popularity.app.service.serviceImpl;
 
 import com.springboot.star_wars_character_popularity.app.exception.ResourceNotFoundException;
-import com.springboot.star_wars_character_popularity.app.model.VoteModel;
+import com.springboot.star_wars_character_popularity.app.model.Vote;
 import com.springboot.star_wars_character_popularity.app.repository.VoteRepository;
 import com.springboot.star_wars_character_popularity.app.service.VoteService;
 import org.springframework.stereotype.Service;
@@ -19,19 +19,19 @@ public class VoteServiceImpl implements VoteService {
     }
 
     @Override
-    public VoteModel saveVote(VoteModel vote) {
+    public Vote saveVote(Vote vote) {
         return voteRepository.save(vote);
     }
 
     @Override
-    public List<VoteModel> getAllVotes() {
+    public List<Vote> getAllVotes() {
         return voteRepository.findAll();
     }
 
     @Override
-    public VoteModel getVoteById(long id) {
+    public Vote getVoteById(long id) {
 
-        Optional<VoteModel> vote = voteRepository.findById(id);
+        Optional<Vote> vote = voteRepository.findById(id);
 
         if(vote.isPresent()){
            return vote.get();
@@ -42,9 +42,9 @@ public class VoteServiceImpl implements VoteService {
     }
 
     @Override
-    public VoteModel updateVote(VoteModel vote, long id) {
+    public Vote updateVote(Vote vote, long id) {
 
-        VoteModel existingVote = voteRepository.findById(id).orElseThrow(() -> new ResourceNotFoundException("Vote","id",id));
+        Vote existingVote = voteRepository.findById(id).orElseThrow(() -> new ResourceNotFoundException("Vote","id",id));
 
         existingVote.setComment(vote.getComment());
 

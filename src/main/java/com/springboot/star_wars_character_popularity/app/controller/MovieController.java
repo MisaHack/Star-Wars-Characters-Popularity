@@ -1,6 +1,6 @@
 package com.springboot.star_wars_character_popularity.app.controller;
 
-import com.springboot.star_wars_character_popularity.app.model.MovieModel;
+import com.springboot.star_wars_character_popularity.app.model.Movie;
 import com.springboot.star_wars_character_popularity.app.service.MovieService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -21,23 +21,23 @@ public class MovieController {
     }
 
     @PostMapping
-    public ResponseEntity<MovieModel> saveMovie(@RequestBody MovieModel movie){
-        return new ResponseEntity<MovieModel>(movieService.saveMovie(movie), HttpStatus.CREATED);
+    public ResponseEntity<Movie> saveMovie(@RequestBody Movie movie){
+        return new ResponseEntity<Movie>(movieService.saveMovie(movie), HttpStatus.CREATED);
     }
 
     @GetMapping
-    public List<MovieModel> getAllMovies(){
+    public List<Movie> getAllMovies(){
         return movieService.getAllMovies();
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<MovieModel> getMovieById(@PathVariable("id") long movie_id){
-        return new ResponseEntity<MovieModel>(movieService.getMovieById(movie_id), HttpStatus.OK);
+    public ResponseEntity<Movie> getMovieById(@PathVariable("id") long movie_id){
+        return new ResponseEntity<Movie>(movieService.getMovieById(movie_id), HttpStatus.OK);
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<MovieModel> updateMovie(@PathVariable("id") long id, @RequestBody MovieModel movie){
-        return new ResponseEntity<MovieModel>(movieService.updateMovie(movie, id), HttpStatus.OK);
+    public ResponseEntity<Movie> updateMovie(@PathVariable("id") long id, @RequestBody Movie movie){
+        return new ResponseEntity<Movie>(movieService.updateMovie(movie, id), HttpStatus.OK);
     }
 
     @DeleteMapping("/{id}")

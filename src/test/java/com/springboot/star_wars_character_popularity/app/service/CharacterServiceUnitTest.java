@@ -1,7 +1,7 @@
 package com.springboot.star_wars_character_popularity.app.service;
 
 import com.springboot.star_wars_character_popularity.app.exception.ResourceNotFoundException;
-import com.springboot.star_wars_character_popularity.app.model.CharacterModel;
+import com.springboot.star_wars_character_popularity.app.model.Character;
 import com.springboot.star_wars_character_popularity.app.repository.CharacterRepository;
 import com.springboot.star_wars_character_popularity.app.service.serviceImpl.CharacterServiceImpl;
 import org.junit.jupiter.api.BeforeEach;
@@ -14,8 +14,6 @@ import java.util.Optional;
 
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.*;
-
-import java.util.Optional;
 
 public class CharacterServiceUnitTest {
 
@@ -33,19 +31,19 @@ public class CharacterServiceUnitTest {
     @Test
     void shouldReturnSavedCharacter(){
         //given
-        CharacterModel characterModel = new CharacterModel("Jedi", "Naboo");
+        Character characterModel = new Character("Jedi", "Naboo");
 
-        when(this.characterRepositoryMock.save(characterModel)).thenReturn(new CharacterModel("Jedi", "Tatooine"));
+        when(this.characterRepositoryMock.save(characterModel)).thenReturn(new Character("Jedi", "Tatooine"));
 
-        CharacterModel expectedCharacter = new CharacterModel("Jedi", "Naboo");
+        Character expectedCharacter = new Character("Jedi", "Naboo");
 
         //when
-        CharacterModel actualModel = characterService.saveCharacter(characterModel);
+        Character actualModel = characterService.saveCharacter(characterModel);
 
         //then
         assertNotNull(actualModel);
         assertEquals("Jedi", actualModel.getName());
-        assertEquals("Tatooine", actualModel.getPlanet());
+        assertEquals("Tatooine", actualModel.getHomeworld());
         assertEquals(actualModel, expectedCharacter);
         verify(characterRepositoryMock).save(characterModel);
     }
@@ -53,11 +51,11 @@ public class CharacterServiceUnitTest {
     @Test
     void shouldReturnAllSavedCharacters(){
         //given
-        CharacterModel characterModel1 = new CharacterModel("Jedi", "Naboo");
-        CharacterModel characterModel2 = new CharacterModel("Trooper", "Tatooine");
-        CharacterModel characterModel3 = new CharacterModel("Droid", "Alderaan");
+        Character characterModel1 = new Character("Jedi", "Naboo");
+        Character characterModel2 = new Character("Trooper", "Tatooine");
+        Character characterModel3 = new Character("Droid", "Alderaan");
 
-        List<CharacterModel> characters = new ArrayList<>();
+        List<Character> characters = new ArrayList<>();
         characters.add(characterModel1);
         characters.add(characterModel2);
         characters.add(characterModel3);
@@ -65,7 +63,7 @@ public class CharacterServiceUnitTest {
         when(this.characterRepositoryMock.findAll()).thenReturn(characters);
 
         //when
-        List<CharacterModel> actual = characterService.getAllCharacters();
+        List<Character> actual = characterService.getAllCharacters();
 
         //then
         assertEquals(actual, characters);
@@ -79,18 +77,16 @@ public class CharacterServiceUnitTest {
     @Test
     void shouldReturnSavedCharacterById(){
         //given
-        CharacterModel characterModel = new CharacterModel("Jedi", "Naboo");
-
-        //Naboo
+        Character characterModel = new Character("Jedi", "Naboo");
         
         long id = 1;
 
-        Optional<CharacterModel> characterOptional = Optional.of(new CharacterModel("Jedi", "Tatooine"));
+        Optional<Character> characterOptional = Optional.of(new Character("Jedi", "Tatooine"));
 
         when(this.characterRepositoryMock.findById(id)).thenReturn(characterOptional);
 
         //when
-        CharacterModel actualModel = characterService.getCharacterById(1);
+        Character actualModel = characterService.getCharacterById(1);
 
         //then
         assertEquals(actualModel, characterModel);
@@ -114,22 +110,19 @@ public class CharacterServiceUnitTest {
     @Test
     void shouldReturnUpdatedCharacter(){
         //given
-        CharacterModel characterModel = new CharacterModel("Jedi", "Naboo");
+        Character characterModel = new Character("Jedi", "Naboo");
 
         long id = 1;
 
-        Optional<CharacterModel> characterOptional = Optional.of(new CharacterModel("Jedi", "Tatooine"));
-        //CharacterModel characterOptional = new CharacterModel("Jedi", "Tatooine");
+        Optional<Character> characterOptional = Optional.of(new Character("Jedi", "Tatooine"));
 
         when(this.characterRepositoryMock.findById(id)).thenReturn(characterOptional);
 
-        //characterOptional.
-
         //when
-        CharacterModel actualModel = characterService.updateCharacter(characterModel, id);
+        Character actualModel = characterService.updateCharacter(characterModel, id);
 
         //then
         assertEquals("Jedi", actualModel.getName());
-        assertEquals("Naboo", actualModel.getPlanet());
+        assertEquals("Naboo", actualModel.getHomeworld());
     }
 }

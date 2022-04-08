@@ -12,8 +12,8 @@ import java.util.*;
 @NoArgsConstructor
 @AllArgsConstructor
 @Entity
-@Table(name="User")
-public class UserModel {
+@Table(name="User", uniqueConstraints = @UniqueConstraint(columnNames = "email"))
+public class User {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -26,19 +26,22 @@ public class UserModel {
     @Column(name = "email")
     private String email;
 
-    public UserModel(String userName, String email){
+    @Column(name = "password")
+    private String password;
+
+    public User(String userName, String email){
         this.userName = userName;
         this.email = email;
     }
 
     @JsonIgnore
-    @ManyToMany(fetch = FetchType.LAZY)
+    @ManyToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
     @JoinTable(
             name = "user_roles",
             joinColumns = @JoinColumn(name = "userId"),
             inverseJoinColumns = @JoinColumn(name = "roleId")
     )
-    private Set<RoleModel> roles = new HashSet<>();
+    private Set<Role> roles = new HashSet<>();
 
     @JsonIgnore
     @ManyToMany(fetch = FetchType.LAZY)
@@ -47,7 +50,7 @@ public class UserModel {
             joinColumns = @JoinColumn(name = "userId"),
             inverseJoinColumns = @JoinColumn(name = "voteId")
     )
-    private Set<VoteModel> votes = new HashSet<>();
+    private Set<Vote> votes = new HashSet<>();
 
     @Override
     public boolean equals(Object o) {
@@ -55,7 +58,7 @@ public class UserModel {
             return true;
         if (o == null || getClass() != o.getClass())
             return false;
-        UserModel userModel = (UserModel) o;
+        User userModel = (User) o;
         return getId() == userModel.getId() && getUserName().equals(userModel.getUserName());
     }
 
