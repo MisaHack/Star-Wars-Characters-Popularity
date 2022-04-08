@@ -24,9 +24,12 @@ public class CharacterController {
         this.characterService = characterService;
     }
 
-    @PostMapping
-    public ResponseEntity<CharacterModel> saveCharacter(@RequestBody CharacterModel character){
-       return new ResponseEntity<CharacterModel>(characterService.saveCharacter(character), HttpStatus.CREATED);
+    @PostMapping("/save")
+    public ModelAndView saveCharacter(@ModelAttribute("character") CharacterModel character){
+       //return new ResponseEntity<CharacterModel>(characterService.saveCharacter(character), HttpStatus.CREATED);
+       characterService.saveCharacter(character);
+
+       return new ModelAndView("redirect:/api/characterlistdb/list");
     }
 
     @GetMapping
