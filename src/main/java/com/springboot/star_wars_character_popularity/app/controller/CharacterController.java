@@ -1,7 +1,9 @@
 package com.springboot.star_wars_character_popularity.app.controller;
 
 import com.springboot.star_wars_character_popularity.app.model.Character;
+import com.springboot.star_wars_character_popularity.app.service.CharacterImportService;
 import com.springboot.star_wars_character_popularity.app.service.CharacterService;
+import lombok.RequiredArgsConstructor;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
@@ -9,14 +11,12 @@ import org.springframework.web.servlet.ModelAndView;
 import java.util.List;
 
 @RestController
+@RequiredArgsConstructor
 @RequestMapping("/api/character")
 public class CharacterController {
 
-    private CharacterService characterService;
-
-    public CharacterController(CharacterService characterService){
-        this.characterService = characterService;
-    }
+    private final CharacterService characterService;
+    private final CharacterImportService characterImportService;
 
     @PostMapping
     public ModelAndView saveCharacter(@ModelAttribute("character") Character character){
@@ -38,8 +38,6 @@ public class CharacterController {
 
         return modelAndView;
     }
-
-
 
     @GetMapping("/showFormForAdd")
     public ModelAndView showFormForAdd(Model theModel){
@@ -77,7 +75,7 @@ public class CharacterController {
 
     @GetMapping("/fetch-characters")
     public void getCharacterData(){
-        characterService.fetchCharactersOptimized();
+        characterImportService.fetchCharacters();
     }
 
 }
