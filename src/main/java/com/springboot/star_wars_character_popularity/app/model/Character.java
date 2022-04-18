@@ -15,7 +15,7 @@ import java.util.Set;
 @NoArgsConstructor
 @AllArgsConstructor
 @Table(name="Character")
-public class CharacterModel {
+public class Character {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -28,12 +28,12 @@ public class CharacterModel {
     @Column(name = "votersCount")
     public long count;
 
-    @Column(name = "planet")
-    public String planet;
+    @Column(name = "homeworld")
+    public String homeworld;
 
-    public CharacterModel(String name, String planet){
+    public Character(String name, String planet){
         this.name=name;
-        this.planet=planet;
+        this.homeworld=homeworld;
     }
 
     @JsonIgnore
@@ -43,7 +43,7 @@ public class CharacterModel {
             joinColumns = @JoinColumn(name = "characterId"),
             inverseJoinColumns = @JoinColumn(name = "movieId")
     )
-    public Set<MovieModel> movies = new HashSet<>();
+    public Set<Movie> movies = new HashSet<>();
 
     @Override
     public boolean equals(Object o) {
@@ -51,7 +51,7 @@ public class CharacterModel {
             return true;
         if (o == null || getClass() != o.getClass())
             return false;
-        CharacterModel that = (CharacterModel) o;
+        Character that = (Character) o;
         return getId() == that.getId() && getName().equals(that.getName());
     }
 

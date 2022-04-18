@@ -1,7 +1,7 @@
 package com.springboot.star_wars_character_popularity.app.service.serviceImpl;
 
 import com.springboot.star_wars_character_popularity.app.exception.ResourceNotFoundException;
-import com.springboot.star_wars_character_popularity.app.model.MovieModel;
+import com.springboot.star_wars_character_popularity.app.model.Movie;
 import com.springboot.star_wars_character_popularity.app.repository.MovieRepository;
 import com.springboot.star_wars_character_popularity.app.service.MovieService;
 import org.springframework.stereotype.Service;
@@ -19,18 +19,18 @@ public class MovieServiceImpl implements MovieService {
     }
 
     @Override
-    public MovieModel saveMovie(MovieModel movie) {
+    public Movie saveMovie(Movie movie) {
         return movieRepository.save(movie);
     }
 
     @Override
-    public List<MovieModel> getAllMovies() {
+    public List<Movie> getAllMovies() {
         return movieRepository.findAll();
     }
 
     @Override
-    public MovieModel getMovieById(long id) {
-        Optional<MovieModel> movie = movieRepository.findById(id);
+    public Movie getMovieById(long id) {
+        Optional<Movie> movie = movieRepository.findById(id);
 
         if(movie.isPresent()){
             return movie.get();
@@ -41,9 +41,9 @@ public class MovieServiceImpl implements MovieService {
     }
 
     @Override
-    public MovieModel updateMovie(MovieModel movie, long id) {
+    public Movie updateMovie(Movie movie, long id) {
 
-        MovieModel existingMovie = movieRepository.findById(id).orElseThrow(() -> new ResourceNotFoundException("Movie","id",id));
+        Movie existingMovie = movieRepository.findById(id).orElseThrow(() -> new ResourceNotFoundException("Movie","id",id));
 
         existingMovie.setName(movie.getName());
 

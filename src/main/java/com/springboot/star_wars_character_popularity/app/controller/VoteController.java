@@ -1,6 +1,6 @@
 package com.springboot.star_wars_character_popularity.app.controller;
 
-import com.springboot.star_wars_character_popularity.app.model.VoteModel;
+import com.springboot.star_wars_character_popularity.app.model.Vote;
 import com.springboot.star_wars_character_popularity.app.service.VoteService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -21,23 +21,23 @@ public class VoteController {
     }
 
     @PostMapping
-    public ResponseEntity<VoteModel> saveVote(@RequestBody VoteModel vote){
-        return new ResponseEntity<VoteModel>(voteService.saveVote(vote), HttpStatus.CREATED);
+    public ResponseEntity<Vote> saveVote(@RequestBody Vote vote){
+        return new ResponseEntity<Vote>(voteService.saveVote(vote), HttpStatus.CREATED);
     }
 
     @GetMapping
-    public List<VoteModel> getAllVotes(){
+    public List<Vote> getAllVotes(){
         return voteService.getAllVotes();
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<VoteModel> getVoteById(@PathVariable("id") long vote_id){
-       return new ResponseEntity<VoteModel>(voteService.getVoteById(vote_id), HttpStatus.OK);
+    public ResponseEntity<Vote> getVoteById(@PathVariable("id") long vote_id){
+       return new ResponseEntity<Vote>(voteService.getVoteById(vote_id), HttpStatus.OK);
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<VoteModel> updateVote(@PathVariable("id") long id, @RequestBody VoteModel vote){
-        return new ResponseEntity<VoteModel>(voteService.updateVote(vote,id), HttpStatus.OK);
+    public ResponseEntity<Vote> updateVote(@PathVariable("id") long id, @RequestBody Vote vote){
+        return new ResponseEntity<Vote>(voteService.updateVote(vote,id), HttpStatus.OK);
     }
 
     @DeleteMapping("/{id}")

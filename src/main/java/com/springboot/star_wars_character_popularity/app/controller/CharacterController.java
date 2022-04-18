@@ -1,19 +1,15 @@
 package com.springboot.star_wars_character_popularity.app.controller;
 
-import com.springboot.star_wars_character_popularity.app.model.CharacterModel;
+import com.springboot.star_wars_character_popularity.app.model.Character;
 import com.springboot.star_wars_character_popularity.app.service.CharacterService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
-
 import java.util.List;
 
 @RestController
-//@Controller
 @RequestMapping("/api/character")
 public class CharacterController {
 
@@ -25,26 +21,26 @@ public class CharacterController {
     }
 
     @PostMapping("/save")
-    public ModelAndView saveCharacter(@ModelAttribute("character") CharacterModel character){
-       //return new ResponseEntity<CharacterModel>(characterService.saveCharacter(character), HttpStatus.CREATED);
+    public ModelAndView saveCharacter(@ModelAttribute("character") Character character){
+
        characterService.saveCharacter(character);
 
        return new ModelAndView("redirect:/api/characterlistdb/list");
     }
 
     @GetMapping
-    public List<CharacterModel> getAllCharacters(){
+    public List<Character> getAllCharacters(){
         return characterService.getAllCharacters();
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<CharacterModel> getCharacterById(@PathVariable("id") long character_id){
-        return new ResponseEntity<CharacterModel>(characterService.getCharacterById(character_id),HttpStatus.OK);
+    public ResponseEntity<Character> getCharacterById(@PathVariable("id") long character_id){
+        return new ResponseEntity<Character>(characterService.getCharacterById(character_id),HttpStatus.OK);
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<CharacterModel> updateCharacter(@PathVariable("id") long id, @RequestBody CharacterModel character){
-       return new ResponseEntity<CharacterModel>(characterService.updateCharacter(character, id), HttpStatus.OK);
+    public ResponseEntity<Character> updateCharacter(@PathVariable("id") long id, @RequestBody Character character){
+       return new ResponseEntity<Character>(characterService.updateCharacter(character, id), HttpStatus.OK);
     }
 
     @DeleteMapping("/{id}")

@@ -1,7 +1,7 @@
 package com.springboot.star_wars_character_popularity.app.service;
 
 import com.springboot.star_wars_character_popularity.app.exception.ResourceNotFoundException;
-import com.springboot.star_wars_character_popularity.app.model.VoteModel;
+import com.springboot.star_wars_character_popularity.app.model.Vote;
 import com.springboot.star_wars_character_popularity.app.repository.VoteRepository;
 import com.springboot.star_wars_character_popularity.app.service.serviceImpl.VoteServiceImpl;
 import org.junit.jupiter.api.BeforeEach;
@@ -33,14 +33,14 @@ public class VoteServiceUnitTest {
     @Test
     void shouldReturnSavedVote(){
         //given
-        VoteModel voteModel = new VoteModel(2, "Comment #1");
+        Vote voteModel = new Vote(2, "Comment #1");
 
-        when(this.voteRepositoryMock.save(voteModel)).thenReturn(new VoteModel(2, "Comment #1"));
+        when(this.voteRepositoryMock.save(voteModel)).thenReturn(new Vote(2, "Comment #1"));
 
-        VoteModel expectedVote = new VoteModel(2, "Comment #1");
+        Vote expectedVote = new Vote(2, "Comment #1");
 
         //when
-        VoteModel actualModel = voteService.saveVote(voteModel);
+        Vote actualModel = voteService.saveVote(voteModel);
 
         //then
         assertNotNull(actualModel);
@@ -53,11 +53,11 @@ public class VoteServiceUnitTest {
     @Test
     void shouldReturnAllSavedVotes(){
         //given
-        VoteModel voteModel1 = new VoteModel(1, "Comment #1");
-        VoteModel voteModel2 = new VoteModel(2, "Comment #2");
-        VoteModel voteModel3 = new VoteModel(3, "Comment #3");
+        Vote voteModel1 = new Vote(1, "Comment #1");
+        Vote voteModel2 = new Vote(2, "Comment #2");
+        Vote voteModel3 = new Vote(3, "Comment #3");
 
-        List<VoteModel> votes = new ArrayList<>();
+        List<Vote> votes = new ArrayList<>();
         votes.add(voteModel1);
         votes.add(voteModel2);
         votes.add(voteModel3);
@@ -65,7 +65,7 @@ public class VoteServiceUnitTest {
         when(this.voteRepositoryMock.findAll()).thenReturn(votes);
 
         //when
-        List<VoteModel> actual = voteService.getAllVotes();
+        List<Vote> actual = voteService.getAllVotes();
 
         //then
         assertEquals(actual, votes);
@@ -78,16 +78,16 @@ public class VoteServiceUnitTest {
     @Test
     void shouldReturnSavedVoteById(){
         //given
-        VoteModel voteModel = new VoteModel(1, "Comment #1");
+        Vote voteModel = new Vote(1, "Comment #1");
 
         long id = 1;
 
-        Optional<VoteModel> voteOptional = Optional.of(new VoteModel(1, "Comment #1"));
+        Optional<Vote> voteOptional = Optional.of(new Vote(1, "Comment #1"));
 
         when(this.voteRepositoryMock.findById(id)).thenReturn(voteOptional);
 
         //when
-        VoteModel actualModel = voteService.getVoteById(1);
+        Vote actualModel = voteService.getVoteById(1);
 
         //then
         assertEquals(actualModel, voteModel);

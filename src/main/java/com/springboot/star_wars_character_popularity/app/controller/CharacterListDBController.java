@@ -1,6 +1,6 @@
 package com.springboot.star_wars_character_popularity.app.controller;
 
-import com.springboot.star_wars_character_popularity.app.model.CharacterModel;
+import com.springboot.star_wars_character_popularity.app.model.Character;
 import com.springboot.star_wars_character_popularity.app.service.CharacterService;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -9,8 +9,6 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.ModelAndView;
 
-import javax.annotation.PostConstruct;
-import java.util.ArrayList;
 import java.util.List;
 
 @RestController
@@ -23,12 +21,11 @@ public class CharacterListDBController {
         this.characterService = characterService;
     }
 
-    // add mapping for "/list"
-    @GetMapping("/list")
+    @GetMapping
     public ModelAndView listCharacters(Model theModel){
 
         //load characters data from db
-        List<CharacterModel> characters = characterService.getAllCharacters();
+        List<Character> characters = characterService.getAllCharacters();
 
         // add to the spring model
         theModel.addAttribute("characters", characters);
@@ -43,7 +40,7 @@ public class CharacterListDBController {
     public ModelAndView showFormForAdd(Model theModel){
 
         // create model attribute to bind form data
-        CharacterModel character = new CharacterModel();
+        Character character = new Character();
 
         theModel.addAttribute("character", character);
 
@@ -57,7 +54,7 @@ public class CharacterListDBController {
     public ModelAndView showFormForUpdate(@RequestParam("characterId") long id, Model theModel){
 
         // get the character from the service
-        CharacterModel character = characterService.getCharacterById(id);
+        Character character = characterService.getCharacterById(id);
 
         // set character as a model attribute to pre-populate the form
         theModel.addAttribute("character", character);
@@ -76,6 +73,12 @@ public class CharacterListDBController {
         characterService.deleteCharacter(id);
 
         // redirect to /api/character/list
-        return new ModelAndView("redirect:/api/characterlistdb/list");
+        return new ModelAndView("redirect:/api/characterlistdb/");
     }
+
+    @GetMapping("/fetch-characters")
+    public void getCharacterData(){
+        characterService.fetchCharactersOptimized();
+    }
+
 }

@@ -1,7 +1,7 @@
 package com.springboot.star_wars_character_popularity.app.service;
 
 import com.springboot.star_wars_character_popularity.app.exception.ResourceNotFoundException;
-import com.springboot.star_wars_character_popularity.app.model.UserModel;
+import com.springboot.star_wars_character_popularity.app.model.User;
 import com.springboot.star_wars_character_popularity.app.repository.UserRepository;
 import com.springboot.star_wars_character_popularity.app.service.serviceImpl.UserServiceImpl;
 import org.junit.jupiter.api.BeforeEach;
@@ -33,14 +33,14 @@ public class UserServiceUnitTest {
     @Test
     void shouldReturnSavedUser(){
         //given
-        UserModel userModel = new UserModel("Misa", "misa@axiom.com");
+        User userModel = new User("Misa", "misa@axiom.com");
 
-        when(this.userRepositoryMock.save(userModel)).thenReturn(new UserModel("Misa", "misa@axiom.com"));
+        when(this.userRepositoryMock.save(userModel)).thenReturn(new User("Misa", "misa@axiom.com"));
 
-        UserModel expectedUser = new UserModel("Misa", "misa@axiom.com");
+        User expectedUser = new User("Misa", "misa@axiom.com");
 
         //when
-        UserModel actualModel = userService.saveUser(userModel);
+        User actualModel = userService.saveUser(userModel);
 
         //then
         assertNotNull(actualModel);
@@ -53,11 +53,11 @@ public class UserServiceUnitTest {
     @Test
     void shouldReturnAllSavedUsers(){
         //given
-        UserModel userModel1 = new UserModel("Misa","misa@axiom.com");
-        UserModel userModel2 = new UserModel("Stefan","stefan@axiom.com");
-        UserModel userModel3 = new UserModel("Zoran","zoran@axiom.com");
+        User userModel1 = new User("Misa","misa@axiom.com");
+        User userModel2 = new User("Stefan","stefan@axiom.com");
+        User userModel3 = new User("Zoran","zoran@axiom.com");
 
-        List<UserModel> users = new ArrayList<>();
+        List<User> users = new ArrayList<>();
         users.add(userModel1);
         users.add(userModel2);
         users.add(userModel3);
@@ -65,7 +65,7 @@ public class UserServiceUnitTest {
         when(this.userRepositoryMock.findAll()).thenReturn(users);
 
         //when
-        List<UserModel> actual = userService.getAllUsers();
+        List<User> actual = userService.getAllUsers();
 
         //then
         assertEquals(actual, users);
@@ -78,16 +78,16 @@ public class UserServiceUnitTest {
     @Test
     void shouldReturnSavedUserById(){
         //given
-        UserModel userModel = new UserModel("Misa","misa@axiom.com");
+        User userModel = new User("Misa","misa@axiom.com");
 
         long id = 1;
 
-        Optional<UserModel> userOptional = Optional.of(new UserModel("Misa","misa@axiom.com"));
+        Optional<User> userOptional = Optional.of(new User("Misa","misa@axiom.com"));
 
         when(this.userRepositoryMock.findById(id)).thenReturn(userOptional);
 
         //when
-        UserModel actualModel = userService.getUserById(1);
+        User actualModel = userService.getUserById(1);
 
         //then
         assertEquals(actualModel, userModel);

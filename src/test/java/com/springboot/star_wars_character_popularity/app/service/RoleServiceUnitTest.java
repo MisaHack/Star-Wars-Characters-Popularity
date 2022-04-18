@@ -1,14 +1,12 @@
 package com.springboot.star_wars_character_popularity.app.service;
 
 import com.springboot.star_wars_character_popularity.app.exception.ResourceNotFoundException;
-import com.springboot.star_wars_character_popularity.app.model.RoleModel;
+import com.springboot.star_wars_character_popularity.app.model.Role;
 import com.springboot.star_wars_character_popularity.app.repository.RoleRepository;
 import com.springboot.star_wars_character_popularity.app.service.serviceImpl.RoleServiceImpl;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.function.Executable;
-
-import javax.management.relation.Role;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -35,14 +33,14 @@ public class RoleServiceUnitTest {
     @Test
     void  shouldReturnSavedRole(){
         //given
-        RoleModel roleModel = new RoleModel("Admin");
+        Role roleModel = new Role("Admin");
 
-        when(this.roleRepositoryMock.save(roleModel)).thenReturn(new RoleModel("Admin"));
+        when(this.roleRepositoryMock.save(roleModel)).thenReturn(new Role("Admin"));
 
-        RoleModel expectedRole = new RoleModel("Admin");
+        Role expectedRole = new Role("Admin");
 
         //when
-        RoleModel actualModel = roleService.saveRole(roleModel);
+        Role actualModel = roleService.saveRole(roleModel);
 
         //then
         assertNotNull(actualModel);
@@ -54,17 +52,17 @@ public class RoleServiceUnitTest {
     @Test
     void shouldReturnAllSavedRoles(){
         //given
-        RoleModel roleModel1 = new RoleModel("Admin");
-        RoleModel roleModel2 = new RoleModel("User");
+        Role roleModel1 = new Role("Admin");
+        Role roleModel2 = new Role("User");
 
-        List<RoleModel> roles = new ArrayList<>();
+        List<Role> roles = new ArrayList<>();
         roles.add(roleModel1);
         roles.add(roleModel2);
 
         when(this.roleRepositoryMock.findAll()).thenReturn(roles);
 
         //when
-        List<RoleModel> actual = roleService.getAllRoles();
+        List<Role> actual = roleService.getAllRoles();
 
         //then
         assertEquals(actual, roles);
@@ -76,16 +74,16 @@ public class RoleServiceUnitTest {
     @Test
     void shouldReturnSavedRoleById(){
         //given
-        RoleModel roleModel = new RoleModel("Admin");
+        Role roleModel = new Role("Admin");
 
         long id = 1;
 
-        Optional<RoleModel> roleOptional = Optional.of(new RoleModel("Admin"));
+        Optional<Role> roleOptional = Optional.of(new Role("Admin"));
 
         when(this.roleRepositoryMock.findById(id)).thenReturn(roleOptional);
 
         //when
-        RoleModel actualModel = roleService.getRolesById(1);
+        Role actualModel = roleService.getRolesById(1);
 
         //then
         assertEquals(actualModel, roleModel);
