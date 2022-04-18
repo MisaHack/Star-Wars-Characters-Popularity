@@ -16,7 +16,7 @@
     <h3>Character List Directory</h3>
     <hr>
 
-    <a th:href="@{/api/characterlistdb/showFormForAdd}"
+    <a th:href="@{/api/character/showFormForAdd}"
        class="btn btn-primary btn-sm mb-3">
         Add Character
     </a>
@@ -38,11 +38,11 @@
 
 
             <td>
-                <a th:href="@{/api/characterlistdb/showFormForUpdate(characterId=${tempCharacter.id})}"
+                <a th:href="@{/api/character/showFormForUpdate(characterId=${tempCharacter.id})}"
                    class="btn btn-info btn-sm">
                       Update
                 </a>
-                <a th:href="@{/api/characterlistdb/delete(characterId=${tempCharacter.id})}"
+                <a th:href="@{/api/character/delete(characterId=${tempCharacter.id})}"
                    class="btn btn-danger btn-sm"
                 onclick="if(!(confirm('Are you sure you want to delete this Character?'))) return false">
                      Delete
