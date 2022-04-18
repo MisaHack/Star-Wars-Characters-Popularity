@@ -17,7 +17,7 @@
 
     <p class="h4 mb-4">Save Character</p>
 
-    <form action="#" th:action="@{/api/character/save}"
+    <form action="#" th:action="@{/api/character}"
           th:object="${character}"
           method="POST">
 
@@ -35,7 +35,7 @@
     </form>
 
     <hr>
-    <a th:href="@{/api/characterlistdb/list}">Back to Characters List</a>
+    <a th:href="@{/api/character}">Back to Characters List</a>
 </div>
 </body>
 
