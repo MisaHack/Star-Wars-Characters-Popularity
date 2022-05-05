@@ -3,8 +3,10 @@ package com.springboot.star_wars_character_popularity.app.service.serviceImpl;
 import com.springboot.star_wars_character_popularity.app.exception.ResourceNotFoundException;
 import com.springboot.star_wars_character_popularity.app.model.Role;
 import com.springboot.star_wars_character_popularity.app.model.User;
+import com.springboot.star_wars_character_popularity.app.repository.RoleRepository;
 import com.springboot.star_wars_character_popularity.app.repository.UserRepository;
 import com.springboot.star_wars_character_popularity.app.service.UserService;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
@@ -19,27 +21,29 @@ import java.util.Optional;
 import java.util.stream.Collectors;
 
 @Service
+@Slf4j
 public class UserServiceImpl implements UserService {
 
     @Autowired
     private BCryptPasswordEncoder passwordEncoder;
 
     private UserRepository userRepository;
+    private RoleRepository roleRepository;
 
-    public UserServiceImpl(UserRepository userRepository){
+    public UserServiceImpl(UserRepository userRepository, RoleRepository roleRepository){
         this.userRepository=userRepository;
+        this.roleRepository=roleRepository;
     }
 
     @Override
     public User saveUser(User user) {
-
         user.setPassword(passwordEncoder.encode(user.getPassword()));
-
         return userRepository.save(user);
     }
 
     @Override
     public List<User> getAllUsers() {
+        log.info("Fetching all users");
         return userRepository.findAll();
     }
 
@@ -90,5 +94,29 @@ public class UserServiceImpl implements UserService {
 
        return roles.stream().map(role -> new SimpleGrantedAuthority(role.getRoleName())).collect(Collectors.toList());
 
+    }
+
+    @Override
+    public Role saveRole(Role role) {
+        log.info("Saving new role {} to the database", role.getRoleName());
+
+        return roleRepository.save(role);
+    }
+
+    @Override
+    public void addRoleToUser(String userName, String roleName) {
+        log.info("Adding role {} to user {}", roleName, userName);
+
+        User user = userRepository.findByUserName(userName);
+        Role role = roleRepository.findByRoleName(roleName);
+
+        user.getRoles().add(role);
+        userRepository.save(user);
+    }
+
+    @Override
+    public User getUserByUsername(String userName) {
+        log.info("Fetching user {}", userName);
+        return userRepository.findByUserName(userName);
     }
 }
