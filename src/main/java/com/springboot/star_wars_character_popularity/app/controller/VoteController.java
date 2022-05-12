@@ -1,5 +1,6 @@
 package com.springboot.star_wars_character_popularity.app.controller;
 
+import com.springboot.star_wars_character_popularity.app.exception.FileNotSavedException;
 import com.springboot.star_wars_character_popularity.app.model.Vote;
 import com.springboot.star_wars_character_popularity.app.model.VoteFiles;
 import com.springboot.star_wars_character_popularity.app.service.VoteService;
@@ -62,7 +63,7 @@ public class VoteController {
     }
 
     @PostMapping(consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
-    public ModelAndView saveVote(@ModelAttribute Vote vote, RedirectAttributes redirectAttributes, Model model, @RequestPart(value="image", required = false) MultipartFile multipartFile) throws IOException {
+    public ModelAndView saveVote(@ModelAttribute Vote vote, RedirectAttributes redirectAttributes, Model model, @RequestPart(value="image", required = false) MultipartFile multipartFile) throws IOException, FileNotSavedException {
        Vote dbVote = voteService.saveVote(vote, multipartFile);
 
        ModelAndView modelAndView = new ModelAndView();
