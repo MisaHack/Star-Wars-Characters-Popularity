@@ -4,11 +4,13 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.springframework.web.multipart.MultipartFile;
 
 import javax.persistence.*;
-import java.util.HashSet;
-import java.util.Objects;
-import java.util.Set;
+import javax.validation.constraints.Max;
+import javax.validation.constraints.Min;
+import javax.validation.constraints.Size;
+import java.util.*;
 
 @Data
 @NoArgsConstructor
@@ -18,20 +20,25 @@ import java.util.Set;
 public class Vote {
 
     @Id
-    @GeneratedValue
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "voteId")
     public long id;
 
+    @Min(1)
+    @Max(10)
     @Column(name = "count")
-    public long count;
+    public int count;
 
+    @Size(min=1, max=120)
     @Column(name = "comment")
     public String comment;
 
-    @Column(name = "icon")
-    public byte [] icon;
+    //@Transient
+    //private List<MultipartFile> icons = new ArrayList<MultipartFile>();
+    ///@Transient
+    //private List<String> removeImages = new ArrayList<String>();
 
-    public Vote(long count, String comment){
+    public Vote(int count, String comment){
         this.count = count;
         this.comment = comment;
     }

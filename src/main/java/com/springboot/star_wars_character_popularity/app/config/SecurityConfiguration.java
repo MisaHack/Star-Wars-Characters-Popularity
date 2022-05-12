@@ -39,20 +39,28 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 
    @Override
    public void configure(HttpSecurity http) throws Exception{
-      http.authorizeRequests().
-              antMatchers("/api/user/registration**","/api/user/show-registration-form**","/api/characterlistdb**","/api/characterlistdb/fetch-characters**","/js/**","/css/**","/img/**").permitAll().
-              anyRequest().authenticated().
-              and().
-              formLogin().
-              loginPage("/login").
-              permitAll().
-              and().
-              logout().
-              invalidateHttpSession(true).
-              clearAuthentication(true).
-              logoutRequestMatcher(new AntPathRequestMatcher("/logout")).
-              logoutSuccessUrl("/login?logout").
-              permitAll();
+      http.authorizeRequests()
+              .antMatchers("/js/**").permitAll()
+              .antMatchers("/css/**").permitAll()
+              .antMatchers("/img/**").permitAll()
+              .antMatchers("/api/user/registration**").permitAll()
+              .antMatchers("/api/user/show-registration-form**").permitAll()
+              .antMatchers("/api/characterlistdb**").permitAll()
+              .antMatchers("/api/characterlistdb/fetch-characters**").permitAll()
+              .antMatchers("/uploadView**").permitAll()
+              .antMatchers("/upload**").permitAll()
+              .anyRequest().authenticated()
+              .and()
+              .formLogin()
+              .loginPage("/login")
+              .permitAll()
+              .and()
+              .logout()
+              .invalidateHttpSession(true)
+              .clearAuthentication(true)
+              .logoutRequestMatcher(new AntPathRequestMatcher("/logout"))
+              .logoutSuccessUrl("/login?logout")
+              .permitAll();
    }
 
    @Override
