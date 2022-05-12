@@ -1,5 +1,6 @@
 package com.springboot.star_wars_character_popularity.app.service.serviceImpl;
 
+import com.springboot.star_wars_character_popularity.app.exception.FileNotSavedException;
 import com.springboot.star_wars_character_popularity.app.exception.ResourceNotFoundException;
 import com.springboot.star_wars_character_popularity.app.model.Vote;
 import com.springboot.star_wars_character_popularity.app.model.VoteFiles;
@@ -65,7 +66,7 @@ public class VoteServiceImpl implements VoteService {
     }
 
     @Override
-    public Vote saveVote(Vote vote, MultipartFile multipartFile) throws IOException {
+    public Vote saveVote(Vote vote, MultipartFile multipartFile) throws IOException, FileNotSavedException {
        Vote dbVote = voteRepository.save(vote);
 
        if(dbVote!=null && multipartFile!=null) {
